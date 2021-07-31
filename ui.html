@@ -181,9 +181,10 @@ onmessage = (event) => {
     (async () => {
       const data = {
         sheetId: spreadSheetId,
-        sheetName: spreadSheetName,
+        sheetName: 'シート1', //TODO
         data: postSheet,
       }
+      console.log(data)
       showLoading()
       let response = await fetch(GASUrl, {
         method: 'POST',
@@ -191,7 +192,6 @@ onmessage = (event) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       })
-      console.log(response)
       hideLoading()
     })()
   }

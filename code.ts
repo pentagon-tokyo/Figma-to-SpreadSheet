@@ -58,7 +58,6 @@ figma.ui.onmessage = msg => {
 
   const nodes = figma.root.findAll(node => node.type === "FRAME")
   for (const node of nodes) {
-    debugger;
     if (node.parent.type == "PAGE") {
       // console.log("ページ名", node.parent.name)
       // console.log(node.name)
