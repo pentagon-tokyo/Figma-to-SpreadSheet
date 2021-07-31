@@ -1,6 +1,6 @@
 # Figma-to-SpreadSheet
 
-Please read [gitbook.io] (https://ymmtshny.gitbook.io/figma-to-spreadsheet/).
+Please read [gitbook.io] (https://ymmtshny.gitbook.io/figma-to-spreadsheet/). 
 
 
 # About Figma Plugin
