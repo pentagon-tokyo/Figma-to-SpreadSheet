@@ -74,6 +74,7 @@ figma.ui.onmessage = msg => {
   figma.ui.postMessage({
     postSheet: array,
     spreadSheetId: figma.root.getPluginData(spreadSheetId),
-    GASUrl: figma.root.getPluginData(GASUrl)
+    GASUrl: figma.root.getPluginData(GASUrl),
+    spreadSheetName: figma.root.getPluginData(spreadSheetName),
   })
 }
