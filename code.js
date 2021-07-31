@@ -13,31 +13,19 @@ figma.ui.postMessage({ fileKey: fileKeyValue });
 const spreadSheetId = "spreadSheetId";
 const spreadSheetIdValue = figma.root.getPluginData(spreadSheetId);
 figma.ui.postMessage({ spreadSheetId: spreadSheetIdValue });
+// google app script url
 const GASUrl = "GASUrl";
 const GASUrlValue = figma.root.getPluginData(GASUrl);
 figma.ui.postMessage({ GASUrl: GASUrlValue });
+// google spreadsheet sheet name
+const spreadSheetName = "spreadSheetName";
+const spreadSheetNameValue = figma.root.getPluginData(spreadSheetName);
+figma.ui.postMessage({ spreadSheetName: spreadSheetNameValue });
 // Calls to "parent.postMessage" from within the HTML page will trigger this
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
 figma.ui.onmessage = msg => {
-    // One way of distinguishing between different types of messages sent from
-    // your HTML page is to use an object with a "type" property like this.
-    // if (msg.type === 'create-rectangles') {
-    //   const nodes: SceneNode[] = [];
-    //   for (let i = 0; i < msg.count; i++) {
-    //     const rect = figma.createRectangle();
-    //     rect.x = i * 150;
-    //     rect.fills = [{ type: 'SOLID', color: { r: 1, g: 0.5, b: 0 } }];
-    //     figma.currentPage.appendChild(rect);
-    //     nodes.push(rect);
-    //   }
-    //   figma.currentPage.selection = nodes;
-    //   figma.viewport.scrollAndZoomIntoView(nodes);
-    // }
     console.log(msg);
-    console.log(msg.fileKey);
-    console.log(msg.spreadSheetId);
-    console.log(msg.GASUrl);
     // save fileKey
     figma.root.setPluginData(fileKey, `${msg.fileKey}`);
     console.log(figma.root.getPluginData(fileKey));
@@ -47,6 +35,9 @@ figma.ui.onmessage = msg => {
     // save GASUrl
     figma.root.setPluginData(GASUrl, `${msg.GASUrl}`);
     console.log(figma.root.getPluginData(GASUrl));
+    // save spreadSheetName
+    figma.root.setPluginData(spreadSheetName, `${msg.spreadSheetName}`);
+    console.log(figma.root.getPluginData(spreadSheetName));
     const projectName = figma.root.name;
     console.log(projectName);
     var array = [];

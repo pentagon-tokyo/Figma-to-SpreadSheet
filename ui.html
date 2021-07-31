@@ -11,13 +11,18 @@
 </div>
 
 <div class="form-group">
-<label>Google SpreadSheet ID</label>
-<p><input id="spreadSheetId" value=""></p>
+  <label>Google SpreadSheet ID</label>
+  <p><input id="spreadSheetId" value=""></p>
 </div>
 
 <div class="form-group">
-<label>Google App Script URL</label>
-<p><input id="GASUrl" value=""></p>
+  <label>Google SpreadSheet Name</label>
+  <p><input id="spreadSheetName" value=""></p>
+</div>
+
+<div class="form-group">
+  <label>Google App Script URL</label>
+  <p><input id="GASUrl" value=""></p>
 </div>
 
 <button id="submit">同期する</button>
@@ -129,10 +134,12 @@ document.getElementById('submit').onclick = () => {
   const fileKey = document.getElementById('fileKey').value;
   const spreadSheetId = document.getElementById('spreadSheetId').value;
   const GASUrl = document.getElementById('GASUrl').value;
+  const spreadSheetName = document.getElementById('spreadSheetName').value;
   parent.postMessage({ pluginMessage: { 
     'fileKey': fileKey,
     'spreadSheetId': spreadSheetId,
     'GASUrl': GASUrl,
+    'spreadSheetName': spreadSheetName,
    } 
   }, '*')
 }
@@ -144,6 +151,7 @@ onmessage = (event) => {
   const fileKey = data["fileKey"]
   const spreadSheetId = data["spreadSheetId"]
   const GASUrl = data["GASUrl"]
+  const spreadSheetName = data["spreadSheetName"]
   const getSheet = data["getSheet"]
   const postSheet = data["postSheet"]
 
@@ -153,6 +161,9 @@ onmessage = (event) => {
   if(spreadSheetId != null) {
     document.getElementById('spreadSheetId').value = spreadSheetId
   }
+  if(spreadSheetName != null) {
+    document.getElementById('spreadSheetName').value = spreadSheetName
+  }
   if(GASUrl != null) {
     document.getElementById('GASUrl').value = GASUrl
   }
@@ -161,7 +172,7 @@ onmessage = (event) => {
     //TODO: 
     (async () => {
       let response = await fetch(GASUrl);
-      let commits = await response.json(); // レスポンスの本文を読み JSON としてパースする
+      let commits = await response.json();
       console.log(commits)
     })()
   }
@@ -170,22 +181,15 @@ onmessage = (event) => {
     (async () => {
       const data = {
         sheetId: spreadSheetId,
-        sheetName: 'シート1',
+        sheetName: spreadSheetName,
         data: postSheet,
       }
       showLoading()
       let response = await fetch(GASUrl, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'no-cors', // no-cors, *cors, same-origin
-        // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        // credentials: 'same-origin', // include, *same-origin, omit 
-        headers: {
-          'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        // redirect: 'follow', // manual, *follow, error
-        // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(data) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
       })
       console.log(response)
       hideLoading()
