@@ -1,0 +1,7 @@
+{
+  "name": "figma_to_spread_sheet",
+  "id": "1003045225224796931",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html"
+}

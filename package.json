@@ -1,0 +1,20 @@
+{
+  "name": "figma_to_spread_sheet",
+  "version": "1.0.0",
+  "description": "Your Figma plugin",
+  "main": "code.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.28.0",
+    "g-sheets-api": "^1.4.3"
+  },
+  "dependencies": {
+    "@types/node": "^16.4.8",
+    "browserify": "^17.0.0",
+    "googleapis": "^39.2.0"
+  }
+}

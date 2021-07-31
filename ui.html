@@ -1,0 +1,76 @@
+<h3>Figma to SpreadSheet</h3>
+<p>Figma fileKey<input id="fileKey" value="5"></p>
+<p>SpreadSheetID: <input id="spreadSheetId" value=""></p>
+<p>GASUrl: <input id="GASUrl" value=""></p>
+<button id="submit">同期する</button>
+<script>
+
+document.getElementById('submit').onclick = () => {
+  const fileKey = document.getElementById('fileKey').value;
+  const spreadSheetId = document.getElementById('spreadSheetId').value;
+  const GASUrl = document.getElementById('GASUrl').value;
+  parent.postMessage({ pluginMessage: { 
+    'fileKey': fileKey,
+    'spreadSheetId': spreadSheetId,
+    'GASUrl': GASUrl,
+   } 
+  }, '*')
+}
+
+// get data from code.ts
+onmessage = (event) => {
+  console.log("got this from the plugin code", event.data.pluginMessage)
+  const data = event.data.pluginMessage
+  const fileKey = data["fileKey"]
+  const spreadSheetId = data["spreadSheetId"]
+  const GASUrl = data["GASUrl"]
+  const getSheet = data["getSheet"]
+  const postSheet = data["postSheet"]
+
+  if(fileKey != null) {
+    document.getElementById('fileKey').value = fileKey
+  }
+  if(spreadSheetId != null) {
+    document.getElementById('spreadSheetId').value = spreadSheetId
+  }
+  if(GASUrl != null) {
+    document.getElementById('GASUrl').value = GASUrl
+  }
+
+  if(getSheet != null) {
+    (async () => {
+      let response = await fetch(GASUrl);
+
+      let commits = await response.json(); // レスポンスの本文を読み JSON としてパースする
+      console.log(commits)
+    })()
+  }
+
+  if(postSheet != null) {
+    (async () => {
+      const data = {
+        sheetId: spreadSheetId,
+        sheetName: 'シート1',
+        data: postSheet,
+      }
+      let response = await fetch(GASUrl, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'no-cors', // no-cors, *cors, same-origin
+        // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        // credentials: 'same-origin', // include, *same-origin, omit 
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        // redirect: 'follow', // manual, *follow, error
+        // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
+      })
+      console.log(response)
+    })()
+  }
+  
+}
+
+
+</script>
