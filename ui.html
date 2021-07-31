@@ -1,8 +1,48 @@
 <h3>Figma to SpreadSheet</h3>
-<p>Figma fileKey<input id="fileKey" value="5"></p>
-<p>SpreadSheetID: <input id="spreadSheetId" value=""></p>
-<p>GASUrl: <input id="GASUrl" value=""></p>
+
+<div class="form-group">
+  <label>Figma fileKey</label>
+  <p><input id="fileKey" value="5"></p>
+</div>
+
+<div class="form-group">
+<label>Google SpreadSheet ID</label>
+<p><input id="spreadSheetId" value=""></p>
+</div>
+
+<div class="form-group">
+<label>Google App Script URL</label>
+<p><input id="GASUrl" value=""></p>
+</div>
+
 <button id="submit">同期する</button>
+
+<style>
+  label {
+    font-size: 12px;
+    color: #909090;
+  }
+  p {
+    margin: auto;
+    margin-bottom: 1rem;
+  }
+  input {
+    width: 100%;
+    height: 2rem;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+  }
+  button {
+    color: white;
+    background: #18a0fb;
+    border: none;
+    border-radius: 4px;
+    height: 44px;
+    padding: 12px;
+    cursor : pointer;
+  }
+</style>
+
 <script>
 
 document.getElementById('submit').onclick = () => {

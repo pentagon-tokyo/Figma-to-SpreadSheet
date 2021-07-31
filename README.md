@@ -1,3 +1,10 @@
+# Figma-to-SpreadSheet
+
+Please read [gitbook.io] (https://ymmtshny.gitbook.io/figma-to-spreadsheet/).
+
+
+# About Figma Plugin
+
 Below are the steps to get your plugin running. You can also find instructions at:
 
   https://www.figma.com/plugin-docs/setup/
@@ -38,4 +45,3 @@ We recommend writing TypeScript code using Visual Studio code:
     you reopen Visual Studio Code.
 
 That's it! Visual Studio Code will regenerate the JavaScript file every time you save.
-# Figma-to-SpreadSheet
